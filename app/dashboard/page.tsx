@@ -110,13 +110,14 @@ export default function DashboardPage() {
     }
   };
 
-  const toggleTaskCompletion = (taskId) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
+const toggleTaskCompletion = (taskId: number) => {
+  setTasks(
+    tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    )
+  );
+};
+
 
   const deleteItem = (id, type) => {
     switch (type) {

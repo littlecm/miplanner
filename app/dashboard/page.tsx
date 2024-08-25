@@ -72,7 +72,7 @@ export default function DashboardPage() {
   const [newTask, setNewTask] = useState({
     title: "",
     dueDate: "",
-    classId: "",
+    classId: 0,
   });
   const [newClass, setNewClass] = useState({ name: "", schedule: "" });
   const [newNote, setNewNote] = useState({ title: "", content: "" });
@@ -92,7 +92,7 @@ export default function DashboardPage() {
   const addTask = () => {
     if (newTask.title && newTask.dueDate && newTask.classId) {
       setTasks([...tasks, { id: Date.now(), ...newTask, completed: false }]);
-      setNewTask({ title: "", dueDate: "", classId: "" });
+      setNewTask({ title: "", dueDate: "", classId: 0 });
     }
   };
 
@@ -320,22 +320,22 @@ export default function DashboardPage() {
                     }
                   />
                   <Select
-                    value={newTask.classId}
-                    onValueChange={(value) =>
-                      setNewTask({ ...newTask, classId: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a class" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {classes.map((cls) => (
-                        <SelectItem key={cls.id} value={cls.id.toString()}>
-                          {cls.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+  value={newTask.classId.toString()} // Convert classId to string for the Select component
+  onValueChange={(value) =>
+    setNewTask({ ...newTask, classId: parseInt(value) }) // Convert the value back to a number
+  }
+>
+  <SelectTrigger>
+    <SelectValue placeholder="Select a class" />
+  </SelectTrigger>
+  <SelectContent>
+    {classes.map((cls) => (
+      <SelectItem key={cls.id} value={cls.id.toString()}>
+        {cls.name}
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
                   <Button onClick={addTask}>Add Task</Button>
                 </div>
               </CardContent>
